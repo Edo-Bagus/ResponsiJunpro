@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/WinFormJunpro/.vs/WinFormJunpro
+/WinFormJunpro/WinFormsApp1/bin/Debug/net8.0-windows
+/WinFormJunpro/WinFormsApp1/obj
