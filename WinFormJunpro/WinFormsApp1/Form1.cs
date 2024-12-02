@@ -8,6 +8,9 @@ namespace WinFormsApp1
     public partial class Form1 : Form
     {
         string connString = "Host=localhost;Port=5432;Username=postgres;Password=informatika;Database=ResponsiJunpro";
+        List<Departemen> departemen = new List<Departemen>();
+        List<Jabatan> jabatan = new List<Jabatan>();
+        List<Karyawan> karyawan = new List<Karyawan>();
         NpgsqlConnection conn;
         NpgsqlCommand cmd;
         DataTable dt;
@@ -30,6 +33,7 @@ namespace WinFormsApp1
                 sql = "SELECT * FROM departemen";
                 conn.Open();
                 comboDep.DataSource = null;
+                departemen.Clear();
                 cmd = new NpgsqlCommand(sql, conn);
                 dt = new DataTable();
                 NpgsqlDataReader rd = cmd.ExecuteReader();
@@ -37,8 +41,13 @@ namespace WinFormsApp1
                 conn.Close();
                 foreach (DataRow dr in dt.Rows)
                 {
-                    comboDep.Items.Add(dr[0]);
-                    string listStr = dr[0].ToString() + ": " + dr[1].ToString();
+                    var dept = new Departemen
+                    {
+                        Id_Dep = (int)dr[0],
+                        Nama_Dep = (string)dr[1]
+                    };
+                    comboDep.Items.Add(dept.Id_Dep);
+                    string listStr = dept.Id_Dep.ToString() + ": " + dept.Nama_Dep.ToString();
                     listBox1.Items.Add(listStr);
                 }
             }
@@ -55,6 +64,7 @@ namespace WinFormsApp1
                 sql = "SELECT * FROM jabatan";
                 conn.Open();
                 comboJabatan.DataSource = null;
+                jabatan.Clear();
                 cmd = new NpgsqlCommand(sql, conn);
                 dt = new DataTable();
                 NpgsqlDataReader rd = cmd.ExecuteReader();
@@ -62,8 +72,14 @@ namespace WinFormsApp1
                 conn.Close();
                 foreach (DataRow dr in dt.Rows)
                 {
-                    comboJabatan.Items.Add(dr[0]);
-                    string listStr = dr[0].ToString() + ": " + dr[1].ToString()+ ", salary: " + dr[2].ToString();
+                    var jab = new Jabatan
+                    {
+                        Id_Jabatan = (int)dr[0],
+                        Nama_Jabatan = (string)dr[1],
+                        Salary = (decimal)dr[2]
+                    };
+                    comboJabatan.Items.Add(jab.Id_Jabatan);
+                    string listStr = jab.Id_Jabatan.ToString() + ": " + jab.Nama_Jabatan.ToString()+ ", salary: " + jab.Salary.ToString();
                     listBox2.Items.Add(listStr);
                 }
             }
